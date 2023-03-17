@@ -6,9 +6,12 @@ import java.util.Hashtable;
 public class Parque implements IParque{
 
 
-	// TODO 
+    private static final int AFORO_MAXIMO = 50;
 	private int contadorPersonasTotales;
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
+    long primerMomentoEntrada;
+
+	
 	
 	
 	public Parque() {
@@ -17,34 +20,46 @@ public class Parque implements IParque{
 	}
 
 
-	@Override
-	public void entrarAlParque(String puerta){		// TODO
+	public void entrarAlParque(String puerta){		
 		
+	    // Verificar si ya se alcanzó el aforo máximo
+	    if (contadorPersonasTotales >= AFORO_MAXIMO) {
+	        System.out.println("Aforo máximo alcanzado. No se permite la entrada.");
+	        return;
+	    }
+
 		// Si no hay entradas por esa puerta, inicializamos
 		if (contadoresPersonasPuerta.get(puerta) == null){
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
-		// TODO
-				
-		
 		// Aumentamos el contador total y el individual
 		contadorPersonasTotales++;		
 		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)+1);
 		
-		// Imprimimos el estado del parque
-		imprimirInfo(puerta, "Entrada");
 		
-		// TODO
-		
-		
-		// TODO
+		 // Mostrar información de la entrada
+	    System.out.println("Entrada por la puerta " + puerta + ". Personas totales: " + contadorPersonasTotales);
 		
 	}
 	
-	// 
-	// TODO Método salirDelParque
-	//
+	public synchronized void salir(String puerta) {
+	    // Verificar si hay personas en el parque
+	    if (contadorPersonasTotales <= 0) {
+	        System.out.println("No hay personas en el parque. No se permite la salida.");
+	        return;
+	    }
+	    
+	    // Verificar si hay personas por esa puerta
+	    if (contadoresPersonasPuerta.get(puerta) == null || contadoresPersonasPuerta.get(puerta) <= 0) {
+	        System.out.println("No hay personas por la puerta " + puerta + ". No se permite la salida.");
+	        return;
+	    }
+	   
+	    
+	    // Imprimir información de la salida y del estado del parque
+	    imprimirInfo(puerta, "Salida");
+	}
 	
 	
 	private void imprimirInfo (String puerta, String movimiento){
