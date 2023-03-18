@@ -40,6 +40,22 @@ public class Parque implements IParque{
 		
 		 // Mostrar información de la entrada
 	    System.out.println("Entrada por la puerta " + puerta + ". Personas totales: " + contadorPersonasTotales);
+	    
+		// Calcular tiempo transcurrido desde la primera entrada
+	    long tiempoTranscurrido = System.currentTimeMillis() - primerMomentoEntrada;
+	    double tiempoMedio = tiempoTranscurrido / (double) contadorPersonasTotales;
+	    
+	    // Mostrar tiempo medio transcurrido desde la primera entrada
+	    System.out.println("Tiempo medio transcurrido desde la primera entrada: " + tiempoMedio + " ms");
+
+	    // Verificar si se alcanzó el límite de entradas para todas las puertas
+	    if (contadorPersonasTotales >= AFORO_MAXIMO * contadoresPersonasPuerta.size()) {
+	        System.out.println("Se alcanzó el límite de entradas para todas las puertas.");
+	    }
+	    
+		// Imprimimos el estado del parque
+		imprimirInfo(puerta, "Entrada");
+	
 		
 	}
 	
@@ -55,7 +71,20 @@ public class Parque implements IParque{
 	        System.out.println("No hay personas por la puerta " + puerta + ". No se permite la salida.");
 	        return;
 	    }
-	   
+	    
+	    // Disminuir el contador total y el individual
+	    contadorPersonasTotales--;
+	    contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)-1);
+	    
+	    // Mostrar información de la salida
+	    System.out.println("Salida por la puerta " + puerta + ". Personas totales: " + contadorPersonasTotales);
+	    
+	    // Calcular tiempo transcurrido desde la primera entrada
+	    long tiempoTranscurrido = System.currentTimeMillis() - primerMomentoEntrada;
+	    double tiempoMedio = tiempoTranscurrido / (double) contadorPersonasTotales;
+	    
+	    // Mostrar tiempo medio transcurrido desde la primera entrada
+	    System.out.println("Tiempo medio transcurrido desde la primera entrada: " + tiempoMedio + " ms");
 	    
 	    // Imprimir información de la salida y del estado del parque
 	    imprimirInfo(puerta, "Salida");
