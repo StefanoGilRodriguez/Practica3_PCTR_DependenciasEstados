@@ -8,19 +8,14 @@ public class SistemaLanzador {
 		
 		System.out.println("¡Parque abierto!");
 		
-		for (int i = 0; i < Integer.parseInt(args[0]); i++) {
-			
-			String puerta = ""+((char) (letra_puerta++));
-			
-			// Creación de hilos de entrada
-			ActividadEntradaPuerta entradas = new ActividadEntradaPuerta(puerta, parque);
-			new Thread (entradas).start();
-			
-			// 
-			// TODO
-			//
-			
-			
-		}
+
+		// Creación de hilos de entrada
+	    String[] puertas = {"A", "B", "C", "D", "E"};
+	    for (String puerta : puertas) {
+	    	ActividadEntradaPuerta tareaEntrada = new ActividadEntradaPuerta(puerta, parque);
+	        new Thread(tareaEntrada).start();
+	    }
+
+	  
 	}	
 }
