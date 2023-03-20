@@ -113,9 +113,6 @@ public class Parque implements IParque{
 	
 	protected void checkInvariante() {
 		assert sumarContadoresPuerta() == contadorPersonasTotales : "INV: La suma de contadores de las puertas debe ser igual al valor del contador del parte";
-		// TODO 
-		// TODO
-		
 		
 		
 	}
@@ -134,3 +131,4 @@ public class Parque implements IParque{
 
 
 }
+
