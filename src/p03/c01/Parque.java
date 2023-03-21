@@ -121,7 +121,7 @@ public class Parque implements IParque{
     synchronized (this) {
         try {
             // Esperar si el parque está lleno (aforo máximo de 50 personas)
-            while (contadorPersonas >= 50) {
+            while (contadorPersonasTotales >= 50) {
                 this.wait();
             }
         } catch (InterruptedException e) {
@@ -134,7 +134,7 @@ protected void comprobarAntesDeSalir(){
     synchronized (this) {
         try {
             // Esperar si no hay personas en el parque
-            while (contadorPersonas <= 0) {
+            while (contadorPersonasTotales <= 0) {
                 this.wait();
             }
         } catch (InterruptedException e) {
