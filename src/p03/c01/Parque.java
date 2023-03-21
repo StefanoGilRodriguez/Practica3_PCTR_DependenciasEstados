@@ -118,16 +118,30 @@ public class Parque implements IParque{
 	}
 
 	protected void comprobarAntesDeEntrar(){
-		//
-		// TODO
-		//
-	}
+    synchronized (this) {
+        try {
+            // Esperar si el parque está lleno (aforo máximo de 50 personas)
+            while (contadorPersonas >= 50) {
+                this.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
-	protected void comprobarAntesDeSalir(){
-		//
-		// TODO
-		//
-	}
+protected void comprobarAntesDeSalir(){
+    synchronized (this) {
+        try {
+            // Esperar si no hay personas en el parque
+            while (contadorPersonas <= 0) {
+                this.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
 
 }
